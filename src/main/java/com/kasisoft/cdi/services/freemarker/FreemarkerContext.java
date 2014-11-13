@@ -15,7 +15,7 @@ import lombok.*;
  */
 @EqualsAndHashCode(of = { "version", "templateLoader", "encoding", "sharedVariables" })
 @Data
-public class GenerationDescriptor {
+public class FreemarkerContext {
 
   private Version                 version         = Configuration.VERSION_2_3_21;
   private Encoding                encoding        = Encoding.UTF8;
@@ -26,11 +26,27 @@ public class GenerationDescriptor {
   @Setter(AccessLevel.PRIVATE)
   private Map<String,Object>      sharedVariables = new HashMap<>();
   
+  private ObjectWrapper           objectWrapper   = null;
+  
   public void setEncoding( Encoding newencoding ) {
     encoding = newencoding;
     if( encoding == null ) {
       encoding = Encoding.UTF8;
     }
+  }
+
+  public void setVersion( Version newversion ) {
+    version = newversion;
+    if( version == null ) {
+      version = Configuration.VERSION_2_3_21;
+    }
+  }
+  
+  public ObjectWrapper getObjectWrapper() {
+    if( objectWrapper == null ) {
+      objectWrapper = new DefaultObjectWrapper( version );
+    }
+    return objectWrapper;
   }
   
 } /* ENDCLASS */

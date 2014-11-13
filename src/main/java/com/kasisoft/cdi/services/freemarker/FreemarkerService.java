@@ -2,6 +2,7 @@ package com.kasisoft.cdi.services.freemarker;
 
 import static com.kasisoft.cdi.services.freemarker.internal.Messages.*;
 import freemarker.template.*;
+import freemarker.template.utility.*;
 
 import javax.ejb.*;
 import javax.ejb.Singleton;
@@ -29,7 +30,7 @@ public class FreemarkerService {
 
   private static final Map<String,Object>   EMPTY_PARAMS = new Hashtable<>();
   
-  private Map<GenerationDescriptor,SoftReference<Configuration>>   configurations = new Hashtable<>();
+  private Map<FreemarkerContext,SoftReference<Configuration>>   configurations = new Hashtable<>();
   
   /**
    * Creates a new configuration for the supplied descriptor.
@@ -40,12 +41,12 @@ public class FreemarkerService {
    * 
    * @throws TemplateModelException   The setup of the configuration failed for some reason.
    */
-  private Configuration newConfiguration( GenerationDescriptor descriptor ) throws TemplateModelException {
+  private Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateModelException {
     Configuration result = new Configuration( descriptor.getVersion() );
     if( descriptor.getTemplateLoader() != null ) {
       result.setTemplateLoader( descriptor.getTemplateLoader() );
     }
-    result.setObjectWrapper( new DefaultObjectWrapper( descriptor.getVersion() ) );
+    result.setObjectWrapper( descriptor.getObjectWrapper() );
     result.setDefaultEncoding( descriptor.getEncoding().getEncoding() );
     result.setTemplateExceptionHandler( TemplateExceptionHandler.RETHROW_HANDLER );
     result.setSharedVaribles( descriptor.getSharedVariables() );
@@ -61,7 +62,7 @@ public class FreemarkerService {
    * 
    * @throws TemplateModelException   The setup of the configuration failed for some reason.
    */
-  private Configuration getConfiguration( GenerationDescriptor descriptor ) throws TemplateModelException{
+  private Configuration getConfiguration( FreemarkerContext descriptor ) throws TemplateModelException{
     synchronized( configurations ) {
       SoftReference<Configuration> ref    = configurations.get( descriptor );
       Configuration                result = ref != null ? ref.get() : null;
@@ -82,7 +83,7 @@ public class FreemarkerService {
    * 
    * @return   The desired Freemarker template. Not <code>null</code>.
    */
-  private Template getTemplate( GenerationDescriptor descriptor, String template, Locale locale ) {
+  private Template getTemplate( FreemarkerContext descriptor, String template, Locale locale ) {
     Template result = null;
     try {
       if( locale != null ) {
@@ -108,8 +109,8 @@ public class FreemarkerService {
    * 
    * @throws FreemarkerException   In case of any error.
    */
-  public void generate( @NonNull GenerationDescriptor descriptor, @NonNull String template, @NonNull Writer writer ) {
-    generate( descriptor, template, writer, null, null );
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String template, @NonNull Writer writer ) {
+    generate( descriptor, template, writer, (TemplateModel) null, null );
   }
 
   /**
@@ -118,14 +119,28 @@ public class FreemarkerService {
    * @param descriptor   The descriptor used to access the templates and some add ons. Not <code>null</code>.
    * @param name         The name of the template that is supposed to be rendered. Neither <code>null</code> nor empty.
    * @param writer       The writer which is used to receive the generated content. Not <code>null</code>.
-   * @param params       Parameters that will be used while processing the template. Maybe <code>null</code>.
+   * @param params       Parameters that will be used while processing the template. Not <code>null</code>.
    * 
    * @throws FreemarkerException   In case of any error.
    */
-  public void generate( @NonNull GenerationDescriptor descriptor, @NonNull String template, @NonNull Writer writer, Map<String,Object> params ) {
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String template, @NonNull Writer writer, @NonNull Map<String,Object> params ) {
     generate( descriptor, template, writer, params, null );
   }
-  
+
+  /**
+   * Invokes the generation process of a template.
+   * 
+   * @param descriptor   The descriptor used to access the templates and some add ons. Not <code>null</code>.
+   * @param name         The name of the template that is supposed to be rendered. Neither <code>null</code> nor empty.
+   * @param writer       The writer which is used to receive the generated content. Not <code>null</code>.
+   * @param model        Parameters that will be used while processing the template. Not <code>null</code>.
+   * 
+   * @throws FreemarkerException   In case of any error.
+   */
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String template, @NonNull Writer writer, @NonNull TemplateModel model ) {
+    generate( descriptor, template, writer, model, null );
+  }
+
   /**
    * Invokes the generation process of a template.
    * 
@@ -137,13 +152,35 @@ public class FreemarkerService {
    * 
    * @throws FreemarkerException   In case of any error.
    */
-  public void generate( @NonNull GenerationDescriptor descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Locale locale ) {
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Locale locale ) {
     if( params == null ) {
       params = EMPTY_PARAMS;
     }
+    generateImpl( descriptor, name, writer, params, locale );
+  }
+
+  /**
+   * Invokes the generation process of a template.
+   * 
+   * @param descriptor   The descriptor used to access the templates and some add ons. Not <code>null</code>.
+   * @param name         The name of the template that is supposed to be rendered. Neither <code>null</code> nor empty.
+   * @param writer       The writer which is used to receive the generated content. Not <code>null</code>.
+   * @param model        Parameters that will be used while processing the template. Maybe <code>null</code>.
+   * @param locale       The locale which will be used upon selection of the template. Maybe <code>null</code>.
+   * 
+   * @throws FreemarkerException   In case of any error.
+   */
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, TemplateModel model, Locale locale ) {
+    if( model == null ) {
+      model = Constants.EMPTY_HASH;
+    }
+    generateImpl( descriptor, name, writer, model, locale );
+  }
+
+  private void generateImpl( FreemarkerContext descriptor, String name, Writer writer, Object model, Locale locale ) {
     try {
       Template template = getTemplate( descriptor, name, locale );
-      template.process( params, writer );
+      template.process( model, writer );
       writer.flush();
     } catch( Exception ex ) {
       throw newException( ex, failed_to_process_template.format( name, ex.getLocalizedMessage() ) );

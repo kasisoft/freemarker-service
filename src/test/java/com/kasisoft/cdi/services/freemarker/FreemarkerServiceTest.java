@@ -26,11 +26,11 @@ public class FreemarkerServiceTest extends AbstractEjbTest {
   @Inject
   private FreemarkerService       freemarkerService;
 
-  private GenerationDescriptor    descriptor;
+  private FreemarkerContext    descriptor;
 
   @BeforeSuite
   public void prepare() {
-    descriptor = new GenerationDescriptor();
+    descriptor = new FreemarkerContext();
     descriptor.getTemplateLoader().add( new ClassTemplateLoader( FreemarkerServiceTest.class, "/templates" ) );
   }
   
@@ -44,18 +44,18 @@ public class FreemarkerServiceTest extends AbstractEjbTest {
   }
   
   @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
-  public void invalidGenerateCall1( GenerationDescriptor descriptor, String template, Writer writer ) {
+  public void invalidGenerateCall1( FreemarkerContext descriptor, String template, Writer writer ) {
     freemarkerService.generate( descriptor, template, writer );
   }
 
   @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
-  public void invalidGenerateCall2( GenerationDescriptor descriptor, String template, Writer writer ) {
-    freemarkerService.generate( descriptor, template, writer, null );
+  public void invalidGenerateCall2( FreemarkerContext descriptor, String template, Writer writer ) {
+    freemarkerService.generate( descriptor, template, writer, (Map) null );
   }
 
   @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
-  public void invalidGenerateCall3( GenerationDescriptor descriptor, String template, Writer writer ) {
-    freemarkerService.generate( descriptor, template, writer, null, null );
+  public void invalidGenerateCall3( FreemarkerContext descriptor, String template, Writer writer ) {
+    freemarkerService.generate( descriptor, template, writer, (Map) null, null );
   }
 
   @DataProvider(name = "generateSimpleData")
