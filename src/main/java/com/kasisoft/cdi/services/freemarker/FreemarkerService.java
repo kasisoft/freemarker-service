@@ -39,9 +39,9 @@ public class FreemarkerService {
    * 
    * @return   The Freemarker configuration. Not <code>null</code>.
    * 
-   * @throws TemplateModelException   The setup of the configuration failed for some reason.
+   * @throws TemplateException   The setup of the configuration failed for some reason.
    */
-  private Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateModelException {
+  private Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateException {
     Configuration result = new Configuration( descriptor.getVersion() );
     if( descriptor.getTemplateLoader() != null ) {
       result.setTemplateLoader( descriptor.getTemplateLoader() );
@@ -50,6 +50,8 @@ public class FreemarkerService {
     result.setDefaultEncoding( descriptor.getEncoding().getEncoding() );
     result.setTemplateExceptionHandler( TemplateExceptionHandler.RETHROW_HANDLER );
     result.setSharedVaribles( descriptor.getSharedVariables() );
+    result.setSettings( descriptor.getSettings() );
+    result.setLocale( descriptor.getLocale() );
     return result;
   }
   
@@ -60,9 +62,9 @@ public class FreemarkerService {
    * 
    * @return   The Freemarker configuration. Not <code>null</code>.
    * 
-   * @throws TemplateModelException   The setup of the configuration failed for some reason.
+   * @throws TemplateException   The setup of the configuration failed for some reason.
    */
-  private Configuration getConfiguration( FreemarkerContext descriptor ) throws TemplateModelException{
+  private Configuration getConfiguration( FreemarkerContext descriptor ) throws TemplateException{
     synchronized( configurations ) {
       SoftReference<Configuration> ref    = configurations.get( descriptor );
       Configuration                result = ref != null ? ref.get() : null;
@@ -92,7 +94,7 @@ public class FreemarkerService {
         result = getConfiguration( descriptor ).getTemplate( template );
       }
       if( result == null ) {
-        throw newException( null, missing_or_invalid_template.format( template ) );
+        throw newException( true, missing_or_invalid_template.format( template ) );
       }
     } catch( Exception ex ) {
       throw newException( ex, failed_to_load_template.format( template, ex.getLocalizedMessage() ) );
@@ -206,6 +208,19 @@ public class FreemarkerService {
       log.error( message );
       return new FreemarkerException( message );
     }
+  }
+
+  /**
+   * Creates a new Exception based upon the supplied message. 
+   *
+   * @param missing   <code>true</code> <=> The cause is a missing template.
+   * @param message   A message indicating the cause of error. Neither <code>null</code> nor empty.
+   * 
+   * @return   A newly created exception indicating the error. Not <code>null</code>.
+   */
+  private FreemarkerException newException( boolean missing, String message ) {
+    log.error( message );
+    return new FreemarkerException( message, missing );
   }
 
 } /* ENDCLASS */
