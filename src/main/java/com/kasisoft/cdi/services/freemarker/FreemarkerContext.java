@@ -20,6 +20,11 @@ public class FreemarkerContext {
   private Version                 version         = Configuration.VERSION_2_3_21;
   private Encoding                encoding        = Encoding.UTF8;
   
+  private Locale                  locale          = Locale.ENGLISH;
+
+  @Setter(AccessLevel.PRIVATE)
+  private Properties              settings        = new Properties();
+  
   @Setter(AccessLevel.PRIVATE)
   private CustomTemplateLoader    templateLoader  = new CustomTemplateLoader();
   
@@ -28,18 +33,16 @@ public class FreemarkerContext {
   
   private ObjectWrapper           objectWrapper   = null;
   
-  public void setEncoding( Encoding newencoding ) {
+  public void setEncoding( @NonNull Encoding newencoding ) {
     encoding = newencoding;
-    if( encoding == null ) {
-      encoding = Encoding.UTF8;
-    }
   }
 
-  public void setVersion( Version newversion ) {
+  public void setVersion( @NonNull Version newversion ) {
     version = newversion;
-    if( version == null ) {
-      version = Configuration.VERSION_2_3_21;
-    }
+  }
+
+  public void setLocale( @NonNull Locale newlocale ) {
+    locale = newlocale;
   }
   
   public ObjectWrapper getObjectWrapper() {
