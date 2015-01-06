@@ -96,6 +96,8 @@ public class FreemarkerService {
       if( result == null ) {
         throw newException( true, missing_or_invalid_template.format( template ) );
       }
+    } catch( FileNotFoundException ex ) {
+      throw newException( true, missing_or_invalid_template.format( template ) );
     } catch( Exception ex ) {
       throw newException( ex, failed_to_load_template.format( template, ex.getLocalizedMessage() ) );
     }
