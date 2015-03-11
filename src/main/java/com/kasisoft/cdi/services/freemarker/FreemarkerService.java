@@ -15,6 +15,7 @@ import java.io.*;
 import java.lang.ref.*;
 
 import lombok.*;
+import lombok.experimental.*;
 import lombok.extern.slf4j.*;
 
 /**
@@ -24,13 +25,14 @@ import lombok.extern.slf4j.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @Named @Singleton
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Slf4j
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class FreemarkerService {
 
-  private static final Map<String,Object>   EMPTY_PARAMS = new Hashtable<>();
+  static final Map<String,Object>   EMPTY_PARAMS = new Hashtable<>();
   
-  private Map<FreemarkerContext,SoftReference<Configuration>>   configurations = new Hashtable<>();
+  Map<FreemarkerContext,SoftReference<Configuration>>   configurations = new Hashtable<>();
   
   /**
    * Creates a new configuration for the supplied descriptor.

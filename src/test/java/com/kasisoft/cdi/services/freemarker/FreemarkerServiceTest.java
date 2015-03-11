@@ -17,16 +17,20 @@ import java.util.*;
 
 import java.io.*;
 
+import lombok.*;
+import lombok.experimental.*;
+
 /**
  * @author daniel.kasmeroglu@kasisoft.net
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @ManagedBean
 public class FreemarkerServiceTest extends AbstractEjbTest {
 
   @Inject
-  private FreemarkerService       freemarkerService;
+  FreemarkerService       freemarkerService;
 
-  private FreemarkerContext    descriptor;
+  FreemarkerContext    descriptor;
 
   @BeforeSuite
   public void prepare() {

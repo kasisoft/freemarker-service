@@ -7,18 +7,20 @@ import java.util.*;
 import java.io.*;
 
 import lombok.*;
+import lombok.experimental.*;
 
 /**
  * Variety of Freemarkers {@link MultiTemplateLoader} which is capable to be extended during it's lifetime.
  * 
  * @author daniel.kasmeroglu
  */
-@EqualsAndHashCode(of = "loaders")
+@EqualsAndHashCode(of = "loaders") 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString(of = "loaders")
 public final class CustomTemplateLoader implements StatefulTemplateLoader {
   
-  private List<TemplateLoader>        loaders     = new LinkedList<>();
-  private Map<String,TemplateLoader>  lastLoaders = new Hashtable();
+  List<TemplateLoader>        loaders     = new LinkedList<>();
+  Map<String,TemplateLoader>  lastLoaders = new Hashtable();
 
   /**
    * Adds the supplied TemplateLoader instances to this one. Although it's possible to invoke this function after 
@@ -108,11 +110,12 @@ public final class CustomTemplateLoader implements StatefulTemplateLoader {
    */
   @AllArgsConstructor
   @ToString(of = "source")
+  @FieldDefaults(level = AccessLevel.PRIVATE)
   @EqualsAndHashCode
   private static final class MultiSourceDescriptor {
 
-    private Object          source;
-    private TemplateLoader  loader;
+    Object          source;
+    TemplateLoader  loader;
 
     public long getLastModified() {
       return loader.getLastModified( source );

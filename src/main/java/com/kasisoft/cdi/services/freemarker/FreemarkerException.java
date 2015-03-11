@@ -1,14 +1,16 @@
 package com.kasisoft.cdi.services.freemarker;
 
 import lombok.*;
+import lombok.experimental.*;
 
 /**
  * @author daniel.kasmeroglu@kasisoft.net
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FreemarkerException extends RuntimeException {
 
   @Getter
-  private boolean   missingTemplate = false;
+  boolean   missingTemplate = false;
   
   public FreemarkerException() {
     super();
