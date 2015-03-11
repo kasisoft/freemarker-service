@@ -23,6 +23,8 @@ public class FreemarkerContext {
   Encoding                encoding        = Encoding.UTF8;
   
   Locale                  locale          = Locale.ENGLISH;
+  
+  boolean                 angularBrackets = true;
 
   @Setter(AccessLevel.PRIVATE)
   Properties              settings        = new Properties();

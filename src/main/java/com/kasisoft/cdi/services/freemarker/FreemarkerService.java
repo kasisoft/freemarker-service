@@ -54,6 +54,11 @@ public class FreemarkerService {
     result.setSharedVaribles( descriptor.getSharedVariables() );
     result.setSettings( descriptor.getSettings() );
     result.setLocale( descriptor.getLocale() );
+    if( descriptor.isAngularBrackets() ) {
+      result.setTagSyntax( Configuration.ANGLE_BRACKET_TAG_SYNTAX );
+    } else {
+      result.setTagSyntax( Configuration.SQUARE_BRACKET_TAG_SYNTAX );
+    }
     return result;
   }
   
