@@ -4,3 +4,7 @@
 **/.classpath
 **/.settings/
 **/.test
+.settings/
+.classpath
+.project
+/target/
