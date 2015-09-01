@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kasisoft.cdi</groupId>
   <artifactId>freemarker-service</artifactId>
-  <version>0.2</version>
+  <version>0.3-SNAPSHOT</version>
   <name>Freemarker Service</name>
   <description>A service which allows to make use of the Freemarker templating engine</description>
   
