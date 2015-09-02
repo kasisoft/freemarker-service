@@ -41,9 +41,9 @@ public class FreemarkerServiceTest extends AbstractEjbTest {
   @DataProvider(name = "invalidGenerateCallData")
   public Object[][] invalidGenerateCallData() {
     return new Object[][] {
-      { null, "sample", new StringWriter() },
-      { descriptor, null, new StringWriter() },
-      { descriptor, "sample", null },
+      { null       , "sample" , new StringWriter() },
+      { descriptor , null     , new StringWriter() },
+      { descriptor , "sample" , null               },
     };
   }
   

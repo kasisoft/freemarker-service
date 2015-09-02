@@ -2,12 +2,15 @@ package com.kasisoft.cdi.services.freemarker;
 
 import com.kasisoft.libs.common.constants.*;
 
+import com.kasisoft.libs.common.spi.*;
+
+import lombok.experimental.*;
+
+import lombok.*;
+
 import freemarker.template.*;
 
 import java.util.*;
-
-import lombok.*;
-import lombok.experimental.*;
 
 /**
  * This data structure allows to provide all necessary information needed to run the Freemarker templating engine.
@@ -19,7 +22,7 @@ import lombok.experimental.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FreemarkerContext {
 
-  Version                 version         = Configuration.VERSION_2_3_21;
+  Version                 version         = Configuration.VERSION_2_3_23;
   Encoding                encoding        = Encoding.UTF8;
   
   Locale                  locale          = Locale.ENGLISH;
@@ -54,6 +57,15 @@ public class FreemarkerContext {
       objectWrapper = new DefaultObjectWrapper( version );
     }
     return objectWrapper;
+  }
+  
+  public void registerDirectives( Map<String,Object> properties ) {
+    if( properties == null ) {
+      properties = new HashMap<>();
+    }
+    SPIFunctions
+      .loadSPIServices( FreemarkerDirective.class, properties )
+      .forEach( $ -> sharedVariables.put( $.getName(), $ ) );
   }
   
 } /* ENDCLASS */

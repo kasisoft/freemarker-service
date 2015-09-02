@@ -30,8 +30,6 @@ import lombok.extern.slf4j.*;
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class FreemarkerService {
 
-  static final Map<String,Object>   EMPTY_PARAMS = new Hashtable<>();
-  
   Map<FreemarkerContext,SoftReference<Configuration>>   configurations = new Hashtable<>();
   
   /**
@@ -88,18 +86,14 @@ public class FreemarkerService {
    * 
    * @param descriptor   The descriptor used to access the templates and some add ons. Not <code>null</code>.
    * @param template     The template that is supposed to be delivered. Neither <code>null</code> nor empty.
-   * @param locale       The locale which will be used to locate the template. Maybe <code>null</code>.
+   * @param locale       The locale which will be used to locate the template. Not <code>null</code>.
    * 
    * @return   The desired Freemarker template. Not <code>null</code>.
    */
   private Template getTemplate( FreemarkerContext descriptor, String template, Locale locale ) {
     Template result = null;
     try {
-      if( locale != null ) {
-        result = getConfiguration( descriptor ).getTemplate( template, locale );
-      } else {
-        result = getConfiguration( descriptor ).getTemplate( template );
-      }
+      result = getConfiguration( descriptor ).getTemplate( template, locale );
       if( result == null ) {
         throw newException( true, missing_or_invalid_template.format( template ) );
       }
@@ -165,7 +159,7 @@ public class FreemarkerService {
    */
   public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Locale locale ) {
     if( params == null ) {
-      params = EMPTY_PARAMS;
+      params = Collections.emptyMap();
     }
     generateImpl( descriptor, name, writer, params, locale );
   }
@@ -190,7 +184,7 @@ public class FreemarkerService {
 
   private void generateImpl( FreemarkerContext descriptor, String name, Writer writer, Object model, Locale locale ) {
     try {
-      Template template = getTemplate( descriptor, name, locale );
+      Template template = getTemplate( descriptor, name, locale != null ? locale : Locale.ENGLISH );
       template.process( model, writer );
       writer.flush();
     } catch( Exception ex ) {
