@@ -2,8 +2,6 @@ package com.kasisoft.cdi.services.freemarker;
 
 import com.kasisoft.libs.common.constants.*;
 
-import com.kasisoft.libs.common.spi.*;
-
 import lombok.experimental.*;
 
 import lombok.*;
@@ -22,23 +20,25 @@ import java.util.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FreemarkerContext {
 
-  Version                 version         = Configuration.VERSION_2_3_23;
-  Encoding                encoding        = Encoding.UTF8;
+  Version                       version          = Configuration.VERSION_2_3_23;
+  Encoding                      encoding         = Encoding.UTF8;
   
-  Locale                  locale          = Locale.ENGLISH;
+  Locale                        locale           = Locale.ENGLISH;
   
-  boolean                 angularBrackets = true;
+  boolean                       angularBrackets  = true;
 
   @Setter(AccessLevel.PRIVATE)
-  Properties              settings        = new Properties();
+  Properties                    settings         = new Properties();
   
   @Setter(AccessLevel.PRIVATE)
-  CustomTemplateLoader    templateLoader  = new CustomTemplateLoader();
+  CustomTemplateLoader          templateLoader   = new CustomTemplateLoader();
   
   @Setter(AccessLevel.PRIVATE)
-  Map<String,Object>      sharedVariables = new HashMap<>();
+  Map<String,Object>            sharedVariables  = new HashMap<>();
   
-  ObjectWrapper           objectWrapper   = null;
+  ObjectWrapper                 objectWrapper    = null;
+  
+  TemplateExceptionHandler      exceptionHandler = null;
   
   public void setEncoding( @NonNull Encoding newencoding ) {
     encoding = newencoding;
@@ -57,15 +57,6 @@ public class FreemarkerContext {
       objectWrapper = new DefaultObjectWrapper( version );
     }
     return objectWrapper;
-  }
-  
-  public void registerDirectives( Map<String,Object> properties ) {
-    if( properties == null ) {
-      properties = new HashMap<>();
-    }
-    SPIFunctions
-      .loadSPIServices( FreemarkerDirective.class, properties )
-      .forEach( $ -> sharedVariables.put( $.getName(), $ ) );
   }
   
 } /* ENDCLASS */

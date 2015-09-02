@@ -41,17 +41,21 @@ public class FreemarkerService {
    * 
    * @throws TemplateException   The setup of the configuration failed for some reason.
    */
-  private Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateException {
+  protected Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateException {
     Configuration result = new Configuration( descriptor.getVersion() );
     if( descriptor.getTemplateLoader() != null ) {
       result.setTemplateLoader( descriptor.getTemplateLoader() );
     }
     result.setObjectWrapper( descriptor.getObjectWrapper() );
     result.setDefaultEncoding( descriptor.getEncoding().getEncoding() );
-    result.setTemplateExceptionHandler( TemplateExceptionHandler.RETHROW_HANDLER );
     result.setSharedVaribles( descriptor.getSharedVariables() );
     result.setSettings( descriptor.getSettings() );
     result.setLocale( descriptor.getLocale() );
+    if( descriptor.getExceptionHandler() !=  null ) {
+        result.setTemplateExceptionHandler( descriptor.getExceptionHandler() );
+    } else {
+        result.setTemplateExceptionHandler( TemplateExceptionHandler.RETHROW_HANDLER );
+    }
     if( descriptor.isAngularBrackets() ) {
       result.setTagSyntax( Configuration.ANGLE_BRACKET_TAG_SYNTAX );
     } else {
