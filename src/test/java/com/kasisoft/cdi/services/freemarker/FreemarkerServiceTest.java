@@ -27,8 +27,8 @@ import lombok.experimental.*;
 @ManagedBean
 public class FreemarkerServiceTest extends AbstractEjbTest {
 
-  @Inject
-  FreemarkerService       freemarkerService;
+  @Inject @Named
+  FreemarkerService    freemarkerService;
 
   FreemarkerContext    descriptor;
 

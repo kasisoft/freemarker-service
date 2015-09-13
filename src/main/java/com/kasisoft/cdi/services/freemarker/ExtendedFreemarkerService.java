@@ -25,8 +25,8 @@ import java.io.*;
  * This is a an extension of the {@link FreemarkerService} which provides a more structured way of rendering. 
  * Therefore the templates will be invoked with the following settings:
  * 
- * - the model is provided through a property 'model'
- * - 
+ * - the model is provided through a property 'model' to the template
+ * - all directives registered through the interface {@link FreemarkerDirective} can be loaded
  * 
  * @author daniel.kasmeroglu@kasisoft.net
  */
