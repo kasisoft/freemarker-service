@@ -12,7 +12,7 @@ import lombok.experimental.*;
 /**
  * Variety of Freemarkers {@link MultiTemplateLoader} which is capable to be extended during it's lifetime.
  * 
- * @author daniel.kasmeroglu
+ * @author daniel.kasmeroglu@kasisoft.net
  */
 @EqualsAndHashCode(of = "loaders") 
 @FieldDefaults(level = AccessLevel.PRIVATE)
