@@ -52,11 +52,11 @@
     
     <!-- versioning (java artifacts) -->
     <version-cobertura>2.1.1</version-cobertura>
-    <version-cdi-testbasis>0.1</version-cdi-testbasis>
+    <version-cdi-testbasis>0.3-SNAPSHOT</version-cdi-testbasis>
     <version-freemarker>2.3.23</version-freemarker>
     <version-hamcrest>1.3</version-hamcrest>
     <version-javaee>6.0-6</version-javaee>
-    <version-kasisoft-common>2.0-SNAPSHOT</version-kasisoft-common>
+    <version-kasisoft-common>2.0</version-kasisoft-common>
     <version-log4j>1.6.4</version-log4j>
     <version-lombok>1.16.6</version-lombok>
     <version-openejb>4.7.0</version-openejb>
