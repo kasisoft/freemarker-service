@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>freemarker-service</artifactId>
-  <version>0.7-SNAPSHOT</version>
+  <version>0.7</version>
   
   <name>CDI :: Freemarker Service</name>
   <description>CDI :: Service which allows to make use of the Freemarker templating engine</description>
@@ -31,7 +31,7 @@
     <!-- url>...</url-->
     <connection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</connection>
     <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>freemarker-service-0.7</tag>
   </scm>
 
   <issueManagement>
