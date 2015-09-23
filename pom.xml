@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.kasisoft.cdi</groupId>
     <artifactId>parent</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
   </parent>
 
   <artifactId>freemarker-service</artifactId>
@@ -56,7 +56,7 @@
     
     <!-- versioning (java artifacts) -->
     <version-freemarker>2.3.23</version-freemarker>
-    <version-testbasis>0.6</version-testbasis>
+    <version-testbasis>0.7</version-testbasis>
     
   </properties>
 
@@ -168,46 +168,5 @@
     </repository>
       
   </distributionManagement>
-  
-  <profiles>
-    <profile>
-      <id>kasisoft-artifactory</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <repositories>
-        <repository>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <id>central</id>
-          <name>libs-release</name>
-          <url>https://kasisoft.com/artifactory/libs-release</url>
-        </repository>
-        <repository>
-          <snapshots />
-          <id>snapshots</id>
-          <name>libs-snapshot</name>
-          <url>https://kasisoft.com/artifactory/libs-snapshot</url>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <id>central</id>
-          <name>plugins-release</name>
-          <url>https://kasisoft.com/artifactory/plugins-release</url>
-        </pluginRepository>
-        <pluginRepository>
-          <snapshots />
-          <id>snapshots</id>
-          <name>plugins-snapshot</name>
-          <url>https://kasisoft.com/artifactory/plugins-snapshot</url>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
-  </profiles>
   
 </project>
