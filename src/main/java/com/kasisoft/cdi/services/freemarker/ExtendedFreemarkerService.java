@@ -37,11 +37,17 @@ public class ExtendedFreemarkerService extends FreemarkerService {
 
   Bucket<HashMap<String,Object>>   bucket = new Bucket<>( BucketFactories.newHashMapFactory() );
 
-  List<FreemarkerDirective>   directives;
+  List<FreemarkerDirective>   directives = Collections.emptyList();
   
   @PostConstruct
   public void postConstruct() {
-    directives = SPIFunctions.loadSPIServices( FreemarkerDirective.class );
+    directives  = SPIFunctions.loadSPIServices( FreemarkerDirective.class );
+  }
+  
+  public void configure( @NonNull Map<String,Object> configuration ) {
+    directives.stream()
+      .filter( $ -> $ instanceof Configurable )
+      .forEach( $ -> ((Configurable) $).configure( configuration ) );
   }
   
   @Override
@@ -56,6 +62,10 @@ public class ExtendedFreemarkerService extends FreemarkerService {
     generate( descriptor, template, writer, (TemplateModel) null, null );
   }
 
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String template, @NonNull Writer writer, @NonNull Object modelobj ) {
+    generate( descriptor, template, writer, modelobj, null );
+  }
+
   @Override
   public void generate( @NonNull FreemarkerContext descriptor, @NonNull String template, @NonNull Writer writer, @NonNull Map<String,Object> params ) {
     generate( descriptor, template, writer, params, null );
@@ -66,6 +76,10 @@ public class ExtendedFreemarkerService extends FreemarkerService {
     generate( descriptor, template, writer, model, null );
   }
 
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Object modelobj, Locale locale ) {
+    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, modelobj ), locale ) );
+  }
+  
   @Override
   public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Locale locale ) {
     bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, params ), locale ) );
