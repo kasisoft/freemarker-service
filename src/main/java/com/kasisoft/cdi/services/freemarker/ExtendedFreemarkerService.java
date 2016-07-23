@@ -35,13 +35,16 @@ import java.io.*;
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class ExtendedFreemarkerService extends FreemarkerService {
 
-  Bucket<HashMap<String,Object>>   bucket = new Bucket<>( BucketFactories.newHashMapFactory() );
+  Bucket<HashMap<String,Object>>   bucket     = new Bucket<>( BucketFactories.newHashMapFactory() );
 
-  List<FreemarkerDirective>   directives = Collections.emptyList();
+  List<FreemarkerDirective>        directives = Collections.emptyList();
   
   @PostConstruct
   public void postConstruct() {
-    directives  = SPIFunctions.loadSPIServices( FreemarkerDirective.class );
+    SPILoader<FreemarkerDirective> loader = SPILoader.<FreemarkerDirective>builder()
+      .serviceType( FreemarkerDirective.class )
+      .build();
+    directives  = loader.loadServices();
   }
   
   public void configure( @NonNull Map<String,Object> configuration ) {
