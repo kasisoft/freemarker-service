@@ -6,11 +6,10 @@
   <parent>
     <groupId>com.kasisoft.cdi</groupId>
     <artifactId>parent</artifactId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
   </parent>
 
   <artifactId>freemarker-service</artifactId>
-  <version>0.8-SNAPSHOT</version>
   
   <name>CDI :: Freemarker Service</name>
   <description>CDI :: Service which allows to make use of the Freemarker templating engine</description>
@@ -56,7 +55,7 @@
     
     <!-- versioning (java artifacts) -->
     <version-freemarker>2.3.23</version-freemarker>
-    <version-testbasis>0.7</version-testbasis>
+    <version-testbasis>${project.version}</version-testbasis>
     
   </properties>
 
