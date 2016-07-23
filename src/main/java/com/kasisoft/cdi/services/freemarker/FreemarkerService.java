@@ -79,7 +79,7 @@ public class FreemarkerService {
       Configuration                result = ref != null ? ref.get() : null;
       if( result == null ) {
         result = newConfiguration( descriptor );
-        configurations.put( descriptor, new SoftReference<Configuration>( result ) );
+        configurations.put( descriptor, new SoftReference<>( result ) );
       }
       return result;
     }
