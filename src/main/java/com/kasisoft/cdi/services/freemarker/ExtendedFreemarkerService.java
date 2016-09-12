@@ -80,20 +80,30 @@ public class ExtendedFreemarkerService extends FreemarkerService {
   }
 
   public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Object modelobj, Locale locale ) {
-    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, modelobj ), locale ) );
+    generate( descriptor, name, writer, modelobj, null, locale );
   }
   
   @Override
   public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Locale locale ) {
-    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, params ), locale ) );
+    generate( descriptor, name, writer, params, null, locale );
   }
 
-  @Override
-  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, TemplateModel model, Locale locale ) {
-    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, model ), locale ) );
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Object modelobj, Map<String, Object> additional, Locale locale ) {
+    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, modelobj, additional ), locale ) );
+  }
+  
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, Map<String,Object> params, Map<String, Object> additional, Locale locale ) {
+    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, params, additional ), locale ) );
   }
 
-  private <T> Map<String,Object> asModel( HashMap<String,Object> map, T model ) {
+  public void generate( @NonNull FreemarkerContext descriptor, @NonNull String name, @NonNull Writer writer, TemplateModel model, Map<String, Object> additional, Locale locale ) {
+    bucket.forInstanceDo( $ -> super.generate( descriptor, name, writer, asModel( $, model, additional ), locale ) );
+  }
+
+  private <T> Map<String,Object> asModel( HashMap<String,Object> map, T model, Map<String, Object> additional ) {
+    if( additional != null ) {
+      map.putAll( additional );
+    }
     map.put( FreemarkerKeys.FMK_MODEL, model );
     return map;
   }
