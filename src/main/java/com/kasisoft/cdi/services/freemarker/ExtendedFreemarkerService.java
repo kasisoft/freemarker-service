@@ -33,7 +33,7 @@ import java.io.*;
 @Named @Singleton
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-public class ExtendedFreemarkerService extends FreemarkerService {
+public class ExtendedFreemarkerService extends AbstractFreemarkerService {
 
   Bucket<HashMap<String,Object>>   bucket     = new Bucket<>( BucketFactories.newHashMapFactory() );
 
