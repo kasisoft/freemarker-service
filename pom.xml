@@ -55,7 +55,6 @@
     
     <!-- versioning (java artifacts) -->
     <version-freemarker>2.3.23</version-freemarker>
-    <version-testbasis>${project.version}</version-testbasis>
     
   </properties>
 
@@ -67,13 +66,6 @@
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
         <version>${version-freemarker}</version>
-      </dependency>
-    
-      <dependency>
-        <groupId>com.kasisoft.cdi</groupId>
-        <artifactId>testbasis</artifactId>
-        <version>${version-testbasis}</version>
-        <scope>test</scope>
       </dependency>
     
     </dependencies>
@@ -99,11 +91,12 @@
     </dependency>
   
     <dependency>
-      <groupId>org.apache.openejb</groupId>
+      <groupId>org.apache.tomee</groupId>
       <artifactId>javaee-api</artifactId>
       <scope>provided</scope>
     </dependency>
-  
+
+    <!-- 
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>openejb-core</artifactId>
@@ -115,16 +108,19 @@
         </exclusion>
       </exclusions>
     </dependency>
+    -->  
     
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-    
+
+    <!-- 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
     </dependency>
+    -->
     
     <dependency>
       <groupId>org.testng</groupId>
@@ -132,11 +128,13 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- 
     <dependency>
       <groupId>net.sourceforge.cobertura</groupId>
       <artifactId>cobertura</artifactId>
       <scope>test</scope>
     </dependency>
+    -->
 
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -144,28 +142,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- 
     <dependency>
       <groupId>com.kasisoft.cdi</groupId>
       <artifactId>testbasis</artifactId>
       <scope>test</scope>
     </dependency>
+    -->
 
   </dependencies>
     
-  <distributionManagement>
-  
-    <snapshotRepository>
-      <id>kasisoft-snapshots</id>
-      <name>kasisoft-snapshots</name>
-      <url>https://kasisoft.com/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-    
-    <repository>
-      <id>kasisoft-release</id>
-      <name>kasisoft-release</name>
-      <url>https://kasisoft.com/artifactory/libs-release-local</url>
-    </repository>
-      
-  </distributionManagement>
-  
 </project>

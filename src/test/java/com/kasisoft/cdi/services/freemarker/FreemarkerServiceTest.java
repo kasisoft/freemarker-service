@@ -3,10 +3,6 @@ package com.kasisoft.cdi.services.freemarker;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
-import freemarker.cache.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -17,15 +13,18 @@ import java.util.*;
 
 import java.io.*;
 
-import lombok.*;
 import lombok.experimental.*;
+
+import lombok.*;
+
+import freemarker.cache.*;
 
 /**
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ManagedBean
-public class FreemarkerServiceTest extends AbstractEjbTest {
+public class FreemarkerServiceTest {
 
   @Inject @Named
   FreemarkerService    freemarkerService;
