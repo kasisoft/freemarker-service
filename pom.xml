@@ -96,59 +96,34 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- 
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-core</artifactId>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jdk14</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    -->  
-    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
 
-    <!-- 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-    </dependency>
-    -->
-    
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <scope>test</scope>
     </dependency>
 
-    <!-- 
+    <dependency>
+      <groupId>com.kasisoft.cdi</groupId>
+      <artifactId>weldex</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>net.sourceforge.cobertura</groupId>
       <artifactId>cobertura</artifactId>
       <scope>test</scope>
     </dependency>
-    -->
 
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- 
-    <dependency>
-      <groupId>com.kasisoft.cdi</groupId>
-      <artifactId>testbasis</artifactId>
-      <scope>test</scope>
-    </dependency>
-    -->
 
   </dependencies>
     

@@ -3,11 +3,11 @@ package com.kasisoft.cdi.services.freemarker;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import com.kasisoft.cdi.weldex.*;
+
 import org.testng.annotations.*;
 
-import javax.annotation.*;
-import javax.ejb.*;
-import javax.inject.*;
+import javax.inject.Singleton;
 
 import java.util.*;
 
@@ -23,17 +23,16 @@ import freemarker.cache.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ManagedBean
+/* @ManagedBean */ @Singleton
 public class FreemarkerServiceTest {
 
-  @Inject @Named
   FreemarkerService    freemarkerService;
-
   FreemarkerContext    descriptor;
 
   @BeforeSuite
   public void prepare() {
-    descriptor = new FreemarkerContext();
+    freemarkerService = CdiContext.component( FreemarkerService.class );
+    descriptor        = new FreemarkerContext();
     descriptor.getTemplateLoader().add( new ClassTemplateLoader( FreemarkerServiceTest.class, "/templates" ) );
   }
   
@@ -46,17 +45,17 @@ public class FreemarkerServiceTest {
     };
   }
   
-  @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
+  @Test(expectedExceptions = NullPointerException.class, dataProvider = "invalidGenerateCallData")
   public void invalidGenerateCall1( FreemarkerContext descriptor, String template, Writer writer ) {
     freemarkerService.generate( descriptor, template, writer );
   }
 
-  @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
+  @Test(expectedExceptions = NullPointerException.class, dataProvider = "invalidGenerateCallData")
   public void invalidGenerateCall2( FreemarkerContext descriptor, String template, Writer writer ) {
     freemarkerService.generate( descriptor, template, writer, (Map) null );
   }
 
-  @Test(expectedExceptions = EJBException.class, dataProvider = "invalidGenerateCallData")
+  @Test(expectedExceptions = NullPointerException.class, dataProvider = "invalidGenerateCallData")
   public void invalidGenerateCall3( FreemarkerContext descriptor, String template, Writer writer ) {
     freemarkerService.generate( descriptor, template, writer, (Map) null, null );
   }
