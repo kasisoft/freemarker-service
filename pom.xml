@@ -2,45 +2,50 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>com.kasisoft.cdi</groupId>
-    <artifactId>parent</artifactId>
-    <version>0.8-SNAPSHOT</version>
-  </parent>
-
-  <artifactId>freemarker-service</artifactId>
   
+  <parent>
+    <groupId>com.kasisoft</groupId>
+    <artifactId>com.kasisoft.libs.parent-oss</artifactId>
+    <version>0.1</version>
+  </parent>  
+  
+  <packaging>jar</packaging>
+  
+  <groupId>com.kasisoft.cdi</groupId>
+  <artifactId>freemarker-service</artifactId>
+  <version>0.8-SNAPSHOT</version>
+
   <name>CDI :: Freemarker Service</name>
+  <url>https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service</url>
   <description>CDI :: Service which allows to make use of the Freemarker templating engine</description>
+  
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://choosealicense.com/licenses/mit/#</url>
+    </license>
+  </licenses>
   
   <organization>
     <name>Kasisoft</name>
     <url>https://kasisoft.com</url>
   </organization>
   
-  <licenses>
-    <license>
-      <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
-      <url>http://www.gnu.org/licenses/lgpl.html</url>
-    </license>
-  </licenses>
-  
   <scm>
-    <!-- url>...</url-->
+    <url>https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service</url>
     <connection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</connection>
     <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-
+  
   <issueManagement>
     <system>jira</system>
-    <url>https://kasisoft.com/jira/browse/CDI</url>
+    <url>https://kasisoft.com/jira/projects/CDIFM</url>
   </issueManagement>
   
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://kasisoft.com/ci/job/cdi.freemarker-service/</url>
+    <url>https://kasisoft.com/jenkins/job/cdi.com.kasisoft.cdi.freemarker-service/</url>
   </ciManagement>
   
   <developers>
@@ -52,79 +57,303 @@
   </developers>
   
   <properties>
-    
-    <!-- versioning (java artifacts) -->
+  
+    <!-- versioning: dependencies -->
+    <version-cobertura>2.1.1</version-cobertura>
     <version-freemarker>2.3.23</version-freemarker>
+    <version-hamcrest>1.3</version-hamcrest>
+    <version-javaee>7.0</version-javaee>
+    <version-kcl>2.7</version-kcl>
+    <version-lombok>1.16.10</version-lombok>
+    <version-weld>2.4.3.Final</version-weld>
+    <version-slf4j>1.7.2</version-slf4j>
+    <version-testng>6.9.10</version-testng>
+    <version-weldex>0.2</version-weldex>
+    
+    <!-- versioning: plugins -->
+    <plugin-version-cobertura-maven>2.7</plugin-version-cobertura-maven>
+    <plugin-version-nexus-staging>1.6.8</plugin-version-nexus-staging>
+    
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
     
   </properties>
-
-  <dependencyManagement>
   
+  <dependencyManagement>
     <dependencies>
-    
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${version-lombok}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.weld.se</groupId>
+        <artifactId>weld-se</artifactId>
+        <version>${version-weld}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>${version-javaee}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>${version-hamcrest}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.kasisoft</groupId>
+        <artifactId>com.kasisoft.libs.common</artifactId>
+        <version>${version-kcl}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${version-slf4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${version-testng}</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
         <version>${version-freemarker}</version>
       </dependency>
-    
+      <dependency>
+        <groupId>net.sourceforge.cobertura</groupId>
+        <artifactId>cobertura</artifactId>
+        <version>${version-cobertura}</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>	
+      </dependency>
+      <dependency>
+        <groupId>com.kasisoft.cdi</groupId>
+        <artifactId>weldex</artifactId>
+        <version>${version-weldex}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
-      
   </dependencyManagement>
-    
-  <dependencies>
   
+  <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <scope>provided</scope>
     </dependency>
-  
     <dependency>
       <groupId>com.kasisoft</groupId>
       <artifactId>com.kasisoft.libs.common</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.jboss.weld.se</groupId>
+      <artifactId>weld-se</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
     </dependency>
-  
     <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>javaee-api</artifactId>
-      <scope>provided</scope>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>com.kasisoft.cdi</groupId>
       <artifactId>weldex</artifactId>
-      <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>net.sourceforge.cobertura</groupId>
       <artifactId>cobertura</artifactId>
-      <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
+
+  <build>
+  
+    <finalName>${project.artifactId}-${project.version}</finalName>
     
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>cobertura-maven-plugin</artifactId>
+          <version>${plugin-version-cobertura-maven}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
+    <plugins>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    
+      <plugin> 
+        <groupId>org.apache.felix</groupId> 
+        <artifactId>maven-bundle-plugin</artifactId>
+      </plugin> 
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <formats>
+            <format>xml</format>
+            <format>html</format>
+          </formats>
+          <instrumentation>
+            <excludes>
+              <exclude>**/*Test.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>net.sourceforge.cobertura</groupId>
+            <artifactId>cobertura</artifactId>
+            <version>${version-cobertura}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${version-slf4j}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      
+    </plugins>
+    
+  </build>
+  
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>sonatype-nexus-staging</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <configuration>
+              <!-- [MRELEASE-263] -->
+              <mavenExecutorId>forked-path</mavenExecutorId>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <distributionManagement>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>libs-kasisoft</id>
+      <name>libs-kasisoft</name>
+      <url>https://kasisoft.com/artifactory/libs-kasisoft</url>
+    </snapshotRepository>
+  </distributionManagement>
+  
+  <repositories>
+    <repository>
+      <id>libs-kasisoft</id>
+      <url>https://kasisoft.com/artifactory/libs-kasisoft</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  
 </project>
