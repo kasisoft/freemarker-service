@@ -1,6 +1,8 @@
 Purpose
 =======
 
+This library provides two services allowing to use Freemarker as a rendering engine for any kind
+of content.
 
 Contact
 =======
@@ -17,6 +19,8 @@ Requirements
 Jira
 ====
 
+* https://kasisoft.com/jira/projects/CDIFM/issues
+
 
 Maven
 =====
@@ -31,6 +35,13 @@ Releases
 
 Releases can be found in Maven Central:
 
+* http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.kasisoft.cdi%22%20AND%20a%3A%22freemarker-service%22
+
+     <dependency>
+         <groupId>com.kasisoft.cdi</groupId>
+        <artifactId>freemarker-service</artifactId>
+        <version>0.8</version>
+     </dependency>
 
 Snapshots
 ---------
@@ -38,9 +49,9 @@ Snapshots
 Snapshots can be used while accessing a dedicated maven repository. Your POM needs the following settings:
 
      <dependency>
-         <groupId>com.kasisoft.cdi</groupId>
-        <artifactId>freemarker-service</artifactId>
-        <version>0.8-SNAPSHOT</version>
+       <groupId>com.kasisoft.cdi</groupId>
+       <artifactId>freemarker-service</artifactId>
+       <version>0.8-SNAPSHOT</version>
      </dependency>
      
      <repositories>
@@ -60,14 +71,15 @@ Snapshots can be used while accessing a dedicated maven repository. Your POM nee
 USAGE
 =====
 
-Either bei injection or instantiation.
+By instantiation:
+
 
     FreemarkerService           instantiated1 = new FreemarkerService();
     
     ExtendedFreemarkerService   instantiated2 = new ExtendedFreemarkerService();
-    ...
-    instantiated2.postConstruct();
     
+By injection:
+
     @Inject
     FreemarkerService           injected1;
     

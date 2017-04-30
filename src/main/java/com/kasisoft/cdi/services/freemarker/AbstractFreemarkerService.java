@@ -31,7 +31,7 @@ import freemarker.template.utility.*;
 @Slf4j
 public class AbstractFreemarkerService {
 
-  Map<FreemarkerContext,SoftReference<Configuration>>   configurations = new Hashtable<>();
+  Map<FreemarkerContext, SoftReference<Configuration>>   configurations = new HashMap<>();
   
   /**
    * Creates a new configuration for the supplied descriptor.
@@ -53,11 +53,11 @@ public class AbstractFreemarkerService {
         descriptor.getTemplateLoader()
       } ) );
     }
-    result.setObjectWrapper( descriptor.getObjectWrapper() );
-    result.setDefaultEncoding( descriptor.getEncoding().getEncoding() );
-    result.setSharedVaribles( descriptor.getSharedVariables() );
-    result.setSettings( descriptor.getSettings() );
-    result.setLocale( descriptor.getLocale() );
+    result.setObjectWrapper   ( descriptor.getObjectWrapper          () );
+    result.setDefaultEncoding ( descriptor.getEncoding().getEncoding () );
+    result.setSharedVaribles  ( descriptor.getSharedVariables        () );
+    result.setSettings        ( descriptor.getSettings               () );
+    result.setLocale          ( descriptor.getLocale                 () );
     if( descriptor.getExceptionHandler() !=  null ) {
         result.setTemplateExceptionHandler( descriptor.getExceptionHandler() );
     } else {

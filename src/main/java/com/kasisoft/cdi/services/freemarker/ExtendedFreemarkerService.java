@@ -15,8 +15,6 @@ import javax.inject.*;
 import javax.ejb.*;
 import javax.ejb.Singleton;
 
-import javax.annotation.*;
-
 import java.util.*;
 
 import java.io.*;
@@ -35,18 +33,25 @@ import java.io.*;
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class ExtendedFreemarkerService extends AbstractFreemarkerService {
 
-  Bucket<HashMap<String,Object>>   bucket     = new Bucket<>( BucketFactories.newHashMapFactory() );
+  Bucket<HashMap<String, Object>>  bucket     = new Bucket<>( BucketFactories.newHashMapFactory() );
 
   List<FreemarkerDirective>        directives = Collections.emptyList();
   
-  @PostConstruct
-  public void postConstruct() {
-    SPILoader<FreemarkerDirective> loader = SPILoader.<FreemarkerDirective>builder()
-      .serviceType( FreemarkerDirective.class )
-      .build();
-    directives  = loader.loadServices();
+  public ExtendedFreemarkerService() {
+    this( true );
   }
-  
+
+  public ExtendedFreemarkerService( boolean loadDirectives ) {
+    if( loadDirectives ) {
+      SPILoader<FreemarkerDirective> loader = SPILoader.<FreemarkerDirective>builder()
+        .serviceType( FreemarkerDirective.class )
+        .build();
+      directives  = loader.loadServices();
+    } else {
+      directives  = Collections.emptyList();
+    }
+  }
+
   public void configure( @NonNull Map<String,Object> configuration ) {
     directives.stream()
       .filter( $ -> $ instanceof Configurable )
@@ -56,6 +61,7 @@ public class ExtendedFreemarkerService extends AbstractFreemarkerService {
   @Override
   protected Configuration newConfiguration( FreemarkerContext descriptor ) throws TemplateException {
     Configuration result = super.newConfiguration( descriptor );
+    // register each directive
     directives.forEach( $ -> result.setSharedVariable( $.getName(), $.getTemplateModel() ) );
     return result;
   }
