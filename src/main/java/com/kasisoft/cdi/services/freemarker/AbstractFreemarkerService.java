@@ -2,6 +2,8 @@ package com.kasisoft.cdi.services.freemarker;
 
 import static com.kasisoft.cdi.services.freemarker.internal.Messages.*;
 
+import com.kasisoft.libs.fmx.*;
+
 import java.util.*;
 
 import java.io.*;
@@ -14,6 +16,7 @@ import lombok.experimental.*;
 
 import lombok.*;
 
+import freemarker.cache.*;
 import freemarker.template.*;
 import freemarker.template.utility.*;
 
@@ -43,6 +46,12 @@ public class AbstractFreemarkerService {
     Configuration result = new Configuration( descriptor.getVersion() );
     if( descriptor.getTemplateLoader() != null ) {
       result.setTemplateLoader( descriptor.getTemplateLoader() );
+    }
+    if( descriptor.isEnableFmx() ) {
+      result.setTemplateLoader( new MultiTemplateLoader( new TemplateLoader[] {
+        new FmxTemplateLoader( descriptor.getTemplateLoader() ),
+        descriptor.getTemplateLoader()
+      } ) );
     }
     result.setObjectWrapper( descriptor.getObjectWrapper() );
     result.setDefaultEncoding( descriptor.getEncoding().getEncoding() );

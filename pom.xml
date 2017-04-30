@@ -61,6 +61,7 @@
     <!-- versioning: dependencies -->
     <version-cobertura>2.1.1</version-cobertura>
     <version-freemarker>2.3.23</version-freemarker>
+    <version-fmx>0.1</version-fmx>
     <version-hamcrest>1.3</version-hamcrest>
     <version-javaee>7.0</version-javaee>
     <version-kcl>2.7</version-kcl>
@@ -110,6 +111,11 @@
         <version>${version-kcl}</version>
       </dependency>
       <dependency>
+        <groupId>com.kasisoft</groupId>
+        <artifactId>com.kasisoft.libs.fmx</artifactId>
+        <version>${version-fmx}</version>
+      </dependency>
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${version-slf4j}</version>
@@ -154,6 +160,10 @@
     <dependency>
       <groupId>com.kasisoft</groupId>
       <artifactId>com.kasisoft.libs.common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.kasisoft</groupId>
+      <artifactId>com.kasisoft.libs.fmx</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.weld.se</groupId>

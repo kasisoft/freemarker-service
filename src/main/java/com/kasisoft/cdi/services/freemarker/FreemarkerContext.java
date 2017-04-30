@@ -33,6 +33,8 @@ public class FreemarkerContext {
   @Setter(AccessLevel.PRIVATE)
   CustomTemplateLoader          templateLoader   = new CustomTemplateLoader();
   
+  boolean                       enableFmx        = false;
+  
   @Setter(AccessLevel.PRIVATE)
   Map<String,Object>            sharedVariables  = new HashMap<>();
   

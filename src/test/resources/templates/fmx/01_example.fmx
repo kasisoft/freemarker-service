@@ -1,0 +1,2 @@
+<fmx:include fmx:path="/square/macros.ftl"/>
+<fmx:bibo value="${name}">CONTENT</fmx:bibo>

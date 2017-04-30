@@ -16,11 +16,10 @@ import lombok.experimental.*;
  */
 @EqualsAndHashCode(of = "loaders") 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = "loaders")
 public final class CustomTemplateLoader implements StatefulTemplateLoader {
   
-  List<TemplateLoader>        loaders     = new LinkedList<>();
-  Map<String,TemplateLoader>  lastLoaders = new Hashtable();
+  List<TemplateLoader>         loaders     = new LinkedList<>();
+  Map<String, TemplateLoader>  lastLoaders = new HashMap<>();
 
   /**
    * Adds the supplied TemplateLoader instances to this one. Although it's possible to invoke this function after 
@@ -105,11 +104,15 @@ public final class CustomTemplateLoader implements StatefulTemplateLoader {
     }
   }
 
+  @Override
+  public String toString() {
+    return String.valueOf( loaders );
+  }
+  
   /**
    * Descriptor for a template source which is associated with it's loader.
    */
   @AllArgsConstructor
-  @ToString(of = "source")
   @FieldDefaults(level = AccessLevel.PRIVATE)
   @EqualsAndHashCode
   private static final class MultiSourceDescriptor {
@@ -129,6 +132,11 @@ public final class CustomTemplateLoader implements StatefulTemplateLoader {
       loader.closeTemplateSource( source );
     }
 
+    @Override
+    public String toString() {
+      return String.valueOf( source );
+    }
+    
   } /* ENDCLASS */
   
 } /* ENDCLASS */

@@ -17,13 +17,14 @@ import freemarker.cache.*;
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 /* @ManagedBean */ @Singleton
-public class FreemarkerServiceTest extends AbstractFreemarkerServiceTest {
+public class FreemarkerServiceWithFmxTest extends AbstractFreemarkerServiceTest {
 
   @BeforeSuite
   public void prepare() {
     freemarkerService = CdiContext.component( FreemarkerService.class );
     descriptor        = new FreemarkerContext();
-    descriptor.getTemplateLoader().add( new ClassTemplateLoader( FreemarkerServiceTest.class, "/templates" ) );
+    descriptor.setEnableFmx( true );
+    descriptor.getTemplateLoader().add( new ClassTemplateLoader( FreemarkerServiceWithFmxTest.class, "/templates" ) );
   }
   
 } /* ENDCLASS */
