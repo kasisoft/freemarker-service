@@ -13,7 +13,7 @@
   
   <groupId>com.kasisoft.cdi</groupId>
   <artifactId>freemarker-service</artifactId>
-  <version>0.8</version>
+  <version>0.9-SNAPSHOT</version>
 
   <name>CDI :: Freemarker Service</name>
   <url>https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service</url>

@@ -51,7 +51,7 @@ Snapshots can be used while accessing a dedicated maven repository. Your POM nee
      <dependency>
        <groupId>com.kasisoft.cdi</groupId>
        <artifactId>freemarker-service</artifactId>
-       <version>0.8-SNAPSHOT</version>
+       <version>0.9-SNAPSHOT</version>
      </dependency>
      
      <repositories>
