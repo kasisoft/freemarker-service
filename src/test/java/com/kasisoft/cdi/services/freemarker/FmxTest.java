@@ -35,8 +35,8 @@ public class FmxTest {
     return new Object[][] {
       // the additional linefeed stems from the generated ftl. there is no simple solution for this without
       // causing other issues. it is ignored here as it's considered to be an edge case.
-      { "fmx/01_example.fmx", newMap( "name", "Peter"  ), "VALUE: Peter-CONTENT\n\n"  },
-      { "fmx/01_example.fmx", newMap( "name", "Gustav" ), "VALUE: Gustav-CONTENT\n\n" },
+      { "fmx/01_example.fmx", newMap( "name", "Peter"  ), "VALUE: Peter-CONTENT\n"  },
+      { "fmx/01_example.fmx", newMap( "name", "Gustav" ), "VALUE: Gustav-CONTENT\n" },
     };
   }
 
