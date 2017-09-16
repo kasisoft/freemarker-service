@@ -41,7 +41,7 @@ Releases can be found in Maven Central:
      <dependency>
          <groupId>com.kasisoft.cdi</groupId>
         <artifactId>freemarker-service</artifactId>
-        <version>0.8</version>
+        <version>0.9</version>
      </dependency>
 
 Snapshots
@@ -52,7 +52,7 @@ Snapshots can be used while accessing a dedicated maven repository. Your POM nee
      <dependency>
        <groupId>com.kasisoft.cdi</groupId>
        <artifactId>freemarker-service</artifactId>
-       <version>0.9-SNAPSHOT</version>
+       <version>1.0-SNAPSHOT</version>
      </dependency>
      
      <repositories>
