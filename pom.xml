@@ -60,7 +60,7 @@
   
     <!-- versioning: dependencies -->
     <version-freemarker>2.3.23</version-freemarker>
-    <version-fmx>0.2</version-fmx>
+    <version-fmx>0.3-SNAPSHOT</version-fmx>
     <version-hamcrest>1.3</version-hamcrest>
     <version-javaee>7.0</version-javaee>
     <version-kcl>2.8</version-kcl>
