@@ -93,6 +93,12 @@
       <groupId>com.kasisoft</groupId>
       <artifactId>com.kasisoft.libs.fmx</artifactId>
       <version>${version-fmx}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.kasisoft</groupId>
+          <artifactId>com.kasisoft.libs.common</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
