@@ -16,7 +16,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>CDI :: Freemarker Service</name>
-  <url>https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service</url>
+  <url>https://kasisoft.com/bitbucket/projects/GRAV/repos/freemarker-service</url>
   <description>CDI :: Service which allows to make use of the Freemarker templating engine</description>
   
   <licenses>
@@ -32,9 +32,9 @@
   </organization>
   
   <scm>
-    <url>https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service</url>
-    <connection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</connection>
-    <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/freemarker-service.git</developerConnection>
+    <url>https://kasisoft.com/bitbucket/projects/GRAV/repos/freemarker-service</url>
+    <connection>scm:git:ssh://kasisoft.com:7999/grav/freemarker-service.git</connection>
+    <developerConnection>scm:git:ssh://kasisoft.com:7999/GRAV/freemarker-service.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
   

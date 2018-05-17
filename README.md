@@ -9,7 +9,7 @@ of content.
 * [eMail: daniel.kasmeroglu@kasisoft.net](mailto:daniel.kasmeroglu@kasisoft.net)
 * [Jira](https://kasisoft.com/jira/projects/CDIFM)
 * [Jenkins](https://kasisoft.com/jenkins/job/cdi.com.kasisoft.cdi.freemarker-service)
-* [GIT](https://kasisoft.com/bitbucket/projects/CDI/repos/freemarker-service)
+* [GIT](https://kasisoft.com/bitbucket/projects/GRAV/repos/freemarker-service)
 
 
 # Development Setup
