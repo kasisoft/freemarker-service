@@ -31,7 +31,7 @@ I assume that you're familiar with Maven. If not I suggest to visit the followin
      <dependency>
          <groupId>com.kasisoft.cdi</groupId>
         <artifactId>freemarker-service</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
      </dependency>
 
 
@@ -42,7 +42,7 @@ Snapshots can be used while accessing a dedicated maven repository. Your POM nee
      <dependency>
        <groupId>com.kasisoft.cdi</groupId>
        <artifactId>freemarker-service</artifactId>
-       <version>1.1-SNAPSHOT</version>
+       <version>1.2-SNAPSHOT</version>
      </dependency>
      
      <repositories>
